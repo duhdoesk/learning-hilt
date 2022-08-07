@@ -24,13 +24,13 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRoda(): Roda {
-        return Roda(16, "azul")
+        return Roda(16, "black")
     }
 
     @Singleton
     @Provides
     fun provideMotor(): Motor {
-        return Motor(8, 400.0)
+        return Motor(400.0)
     }
 
     @Singleton
