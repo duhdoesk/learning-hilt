@@ -45,12 +45,10 @@ class MainViewModel @Inject constructor(
         return Random.nextInt(from = 13, until = 20)
     }
 
-    fun randomCar(): Carro {
+    fun randomCar() {
         c.roda.cor = randomColor()
         c.roda.aro = randomSize()
         c.motor.potencia = randomPower()
-
-        return c
     }
 
 }
