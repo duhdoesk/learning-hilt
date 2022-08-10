@@ -19,9 +19,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    @Inject
-    lateinit var c: Carro
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,22 +29,17 @@ class MainActivity : AppCompatActivity() {
 
         refreshViews()
 
-        val viewModel: MainViewModel by viewModels()
         val btRandom: Button = binding.btRandom
 
         btRandom.setOnClickListener(View.OnClickListener {
-            val att: List<String> = viewModel.sorteiaCarro()
-            c.roda.cor = att[0]
-            c.roda.aro = att[1].toInt()
-            c.motor.potencia = att[2].toDouble()
-
+            viewModel.randomCar()
             refreshViews()
         })
     }
 
     private fun refreshViews() {
         binding.tvCarro.text = "This is my car"
-        binding.tvMotor.text = "It haves a ${c.motor.potencia} hp engine"
-        binding.tvRoda.text = """It's also equipped with ${c.roda.cor} colored ${c.roda.aro}" wheels"""
+        binding.tvMotor.text = "It haves a ${viewModel.c.motor.potencia} hp engine"
+        binding.tvRoda.text = """It's also equipped with ${viewModel.c.roda.cor} colored ${viewModel.c.roda.aro}" wheels"""
     }
 }
