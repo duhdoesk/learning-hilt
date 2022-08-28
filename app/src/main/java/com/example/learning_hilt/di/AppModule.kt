@@ -2,6 +2,7 @@ package com.example.learning_hilt.di
 
 import android.content.Context
 import com.example.learning_hilt.model.Carro
+import com.example.learning_hilt.model.Cor
 import com.example.learning_hilt.model.Motor
 import com.example.learning_hilt.model.Roda
 import dagger.Module
@@ -23,8 +24,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRoda(): Roda {
-        return Roda(16, "black")
+    fun provideRoda(cor: Cor): Roda {
+        return Roda(16, cor)
     }
 
     @Singleton
@@ -37,6 +38,18 @@ object AppModule {
     @Provides
     fun provideCarro(roda: Roda, motor: Motor) : Carro {
         return Carro(roda, motor)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCor() : Cor {
+        return Cor("black", "#000")
+    }
+
+    @Singleton
+    @Provides
+    fun provideContext(@ApplicationContext context: Context) : Context {
+        return context
     }
 
 }

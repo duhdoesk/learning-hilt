@@ -1,0 +1,12 @@
+[
+  {"nome" : "blue",   "hex" : "#063970"},
+  {"nome" : "yellow", "hex" : "#FFD700"},
+  {"nome" : "green",  "hex" : "#02B916"},
+  {"nome" : "red",    "hex" : "#FF0000"},
+  {"nome" : "purple", "hex" : "#430B90"},
+  {"nome" : "orange", "hex" : "#FF9000"},
+  {"nome" : "black",  "hex" : "#040404"},
+  {"nome" : "silver", "hex" : "#908E8C"},
+  {"nome" : "white",  "hex" : "#D0CFCF"},
+  {"nome" : "gold",   "hex" : "#E6BD32"}
+]

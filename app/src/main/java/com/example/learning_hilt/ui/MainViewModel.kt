@@ -2,10 +2,8 @@ package com.example.learning_hilt.ui
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.*
-import com.example.learning_hilt.model.CarGenerator
-import com.example.learning_hilt.model.Carro
-import com.example.learning_hilt.model.Motor
-import com.example.learning_hilt.model.Roda
+import com.example.learning_hilt.datasource.RunTimeDataSource
+import com.example.learning_hilt.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.String.format
 import javax.inject.Inject
@@ -13,34 +11,25 @@ import kotlin.random.Random
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel(), LifecycleObserver {
+    private val carGenerator: CarGenerator,
+    runTimeDataSource: RunTimeDataSource
+) : ViewModel() {
 
-    @Inject
-    lateinit var randomCar: CarGenerator
-    val c: MutableLiveData<Carro> by lazy {
-        MutableLiveData<Carro>(generateNewCar())
+    private val _car = MutableLiveData<Carro>()
+    val car: LiveData<Carro> get() = _car
+
+    init {
+        randomizeCar()
     }
 
-    val colorsList: List<String> = listOf(
-        "blue",
-        "yellow",
-        "green",
-        "red",
-        "purple",
-        "orange",
-        "black",
-        "silver",
-        "white",
-        "gold"
-    )
-
-    fun generateNewCar(): Carro {
-        return randomCar.generateRandomCar()
+    fun randomizeCar() {
+        _car.value = carGenerator.generateRandomCar()
     }
 
-    private fun randomColor(): String {
-        val i = Random.nextInt(from = 0, until = 10)
+    val colorsList: List<Cor> = runTimeDataSource.loadColors()
+
+    private fun randomColor(): Cor {
+        val i = Random.nextInt(from = 0, until = colorsList.size)
         return colorsList[i]
     }
 
@@ -54,7 +43,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun randomizeMyCar() {
-        c.postValue(
+        _car.postValue(
             Carro(
                 Roda(randomSize(), randomColor()), Motor(randomPower())))
     }
