@@ -1,10 +1,10 @@
-package com.example.learning_hilt.datasource
+package com.example.learning_hilt.util
 
 import android.content.Context
 import android.util.Log
 import javax.inject.Inject
 
-class JsonFileReader @Inject constructor (private val context: Context) {
+class JsonFileReader @Inject constructor(private val context: Context) {
 
     fun readJsonAsset(fileName: String): String? {
         return try {
