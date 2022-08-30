@@ -18,30 +18,37 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
-        val carObserver = androidx.lifecycle.Observer<Carro> { car ->
-            if (Build.VERSION.SDK_INT >= 24) {
-                binding.tvMotor.text =
-                    Html.fromHtml("It has a <span style=\"color: #000\">${car.motor.potencia}</span> hp engine", Html.FROM_HTML_MODE_LEGACY)
-                binding.tvRoda.text =
-                    Html.fromHtml("""It's also equipped with <span style="color: ${car.roda.cor.hex}">${car.roda.cor.nome}</span> colored ${car.roda.aro}" wheels""", Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                binding.tvMotor.text = "It has a ${car.motor.potencia} hp engine"
-                binding.tvRoda.text = """It's also equipped with ${car.roda.cor.nome} colored ${car.roda.aro}" wheels"""
-            }
+        binding.btRandom.setOnClickListener {
+            viewModel.randomizeCar()
         }
 
-        val btRandom: Button = binding.btRandom
-        btRandom.setOnClickListener(View.OnClickListener {
-            viewModel.randomizeMyCar()
-        })
+        viewModel.car.observe(this) {
+            setCar(it)
+        }
+    }
 
-        viewModel.car.observe(this, carObserver)
+    @SuppressLint("SetTextI18n")
+    private fun setCar(car: Carro) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            binding.tvMotor.text =
+                Html.fromHtml(
+                    "It has a <span style=\"color: #000\">${car.motor.potencia}</span> hp engine",
+                    Html.FROM_HTML_MODE_LEGACY
+                )
+            binding.tvRoda.text =
+                Html.fromHtml(
+                    """It's also equipped with <span style="color: ${car.roda.cor.hex}">${car.roda.cor.name}</span> colored ${car.roda.aro}" wheels""",
+                    Html.FROM_HTML_MODE_LEGACY
+                )
+        } else {
+            binding.tvMotor.text = "It has a ${car.motor.potencia} hp engine"
+            binding.tvRoda.text =
+                """It's also equipped with ${car.roda.cor.name} colored ${car.roda.aro}" wheels"""
+        }
     }
 }
