@@ -1,4 +1,4 @@
-package com.example.learning_hilt.datasource
+package com.example.learning_hilt.util
 
 import android.content.Context
 import android.util.Log
