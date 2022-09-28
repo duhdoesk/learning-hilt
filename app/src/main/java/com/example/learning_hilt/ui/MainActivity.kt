@@ -49,17 +49,6 @@ class MainActivity : ComponentActivity() {
     private fun SetCar() {
         val car = viewModel.car!!
 
-        val cardModifier: Modifier = Modifier
-            .wrapContentSize()
-            .padding(8.dp)
-
-        val imageModifier: Modifier = Modifier
-            .size(120.dp, 80.dp)
-
-        val textModifier: Modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-
         ComposeTutorialTheme() {
             Surface() {
                 Column(
@@ -72,82 +61,25 @@ class MainActivity : ComponentActivity() {
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp,
                         color = MaterialTheme.colors.primary,
-                        modifier = textModifier
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
                     )
 
-                    Card(
-                        elevation = 8.dp,
-                        modifier = cardModifier
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_baseline_directions_car_24),
-                                colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-                                contentDescription = "Car picture",
-                                modifier = imageModifier
-                            )
-                            Text(
-                                text = "This is my car!",
-                                modifier = textModifier,
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 20.sp,
-                                color = Color.Gray
-                            )
-                        }
-                    }
+                    CardFactory(
+                        painter = R.drawable.ic_baseline_directions_car_24,
+                        contentDescription = "Car Vector",
+                        text = "This is my car!")
 
-                    Card(
-                        elevation = 8.dp,
-                        modifier = cardModifier
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_myengine),
-                                colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-                                contentDescription = "Engine picture",
-                                modifier = imageModifier,
-                                alignment = Center
-                            )
-                            Text(
-                                text = "It has a ${car.engine.power}hp engine...",
-                                modifier = textModifier,
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 20.sp,
-                                color = Color.Gray
-                            )
-                        }
-                    }
+                    CardFactory(
+                        painter = R.drawable.ic_myengine,
+                        contentDescription = "Engine Vector",
+                        text = "It has a ${car.engine.power}hp engine...")
 
-                    Card(
-                        elevation = 8.dp,
-                        modifier = cardModifier
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_mywheel),
-                                colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
-                                contentDescription = "Wheel picture",
-                                modifier = imageModifier,
-                                alignment = Center
-                            )
-                            Text(
-                                text = """And ${car.wheel.rim}" ${car.wheel.color.name} colored wheels!""",
-                                modifier = textModifier,
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 20.sp,
-                                color = Color.Gray
-                            )
-                        }
-                    }
+                    CardFactory(
+                        painter = R.drawable.ic_mywheel,
+                        contentDescription = "Wheel Vector",
+                        text = """And ${car.wheel.rim}" ${car.wheel.color.name} colored wheels!""")
 
                     Row(modifier = Modifier
                         .align(CenterHorizontally)) {
@@ -161,6 +93,39 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    @Composable
+    private fun CardFactory(painter: Int, contentDescription: String, text: String) {
+        Card(
+            elevation = 8.dp,
+            modifier = Modifier
+                .wrapContentSize()
+                .padding(8.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = painter),
+                    colorFilter = ColorFilter.tint(color = MaterialTheme.colors.primary),
+                    contentDescription = contentDescription,
+                    modifier = Modifier
+                        .size(120.dp, 80.dp),
+                    alignment = Center
+                )
+                Text(
+                    text = text,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color.Gray
+                )
             }
         }
     }
