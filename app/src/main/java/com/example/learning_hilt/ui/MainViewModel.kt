@@ -1,5 +1,8 @@
 package com.example.learning_hilt.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.*
 import com.example.learning_hilt.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -10,14 +13,14 @@ class MainViewModel @Inject constructor(
     private val carGenerator: CarGenerator
 ) : ViewModel() {
 
-    private val _car = MutableLiveData<Car>()
-    val car: LiveData<Car> get() = _car
+    var car by mutableStateOf<Car?>(null)
+    private set
 
     init {
-        randomizeCar()
+        setCurrentCar()
     }
 
-    fun randomizeCar() {
-        _car.value = carGenerator.generateRandomCar()
+    fun setCurrentCar() {
+        car = carGenerator.generateRandomCar()
     }
 }

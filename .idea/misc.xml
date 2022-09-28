@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/edusc/workspace/learninghilt/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/edusc/workspace/learninghilt/app/src/main/res/drawable/ic_cart_wheel_svgrepo_com.xml" value="0.176" />
+        <entry key="..\:/Users/edusc/workspace/learninghilt/app/src/main/res/drawable/ic_myengine.xml" value="0.176" />
+        <entry key="..\:/Users/edusc/workspace/learninghilt/app/src/main/res/drawable/ic_mywheel.xml" value="0.176" />
+        <entry key="..\:/Users/edusc/workspace/learninghilt/app/src/main/res/layout/activity_main.xml" value="0.2" />
       </map>
     </option>
   </component>
